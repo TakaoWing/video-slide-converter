@@ -29,3 +29,16 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/video_slide_converter"]
+
+[tool.poetry]
+name = "video-slide-converter"
+version = "0.1.0"
+authors = [
+    { name = "Tsubasa Takaoka", email = "tt.wing2838783@gmail.com" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.6.3"
+streamlit = "^1.32.0"
+pillow = "^10.2.0"
