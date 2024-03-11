@@ -10,7 +10,7 @@ from schema.image import SlideImage
 
 class VideoSlideConverter:
     video_size = (1280, 720)
-    slide_position: tuple[int, int] = (14, 19)
+    slide_position: tuple[int, int] = (30, 36)
     slide_image_magnification: float = 0.715
     base_image = Image.open("src/resource/base_image.png")
 
@@ -65,7 +65,7 @@ class VideoSlideConverter:
         # 画像を貼り付け
         _image.paste(
             im=image,
-            box=self.slide_position,
+            box=(0, 0),
             mask=image,
         )
 
