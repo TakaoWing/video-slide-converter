@@ -37,7 +37,7 @@ description = "slide image to video converter"
 authors = ["Tsubasa Takaoka"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 pydantic = "^2.6.3"
 streamlit = "^1.32.0"
 pillow = "^10.2.0"
