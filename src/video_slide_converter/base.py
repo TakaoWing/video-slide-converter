@@ -33,8 +33,7 @@ class VideoSlideConverter:
         )
         slide_image = slide_image.resize(enlarged_size, Image.LANCZOS)
 
-        # 拡大した画像を特定の位置に配置
-        base_image.paste(slide_image, self.slide_position, slide_image)
+        base_image.paste(slide_image, self.slide_position)
 
         # 結果を保存
         buffer = BytesIO()
