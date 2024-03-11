@@ -34,9 +34,7 @@ packages = ["src/video_slide_converter"]
 name = "video-slide-converter"
 version = "0.1.0"
 description = "slide image to video converter"
-authors = [
-    { name = "Tsubasa Takaoka", email = "tt.wing2838783@gmail.com" }
-]
+authors = ["Tsubasa Takaoka"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
