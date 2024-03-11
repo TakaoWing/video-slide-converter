@@ -43,14 +43,14 @@ class VideoSlideConverter:
             buffer=buffer.getvalue(),
         )
 
-    def convert_slide_images(self) -> list[SlideImage]:
+    def convert_slide_images(self):
         images = st.session_state.get("images", [])
-        return [self._convert_slide_image(image) for image in images]
+        self.slide_images = [self._convert_slide_image(image) for image in images]
 
-    def images_to_zip_buffer(self, images: list[SlideImage]) -> bytes:
+    def images_to_zip_buffer(self) -> bytes:
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
-            for image in images:
+            for image in self.slide_images:
                 zip_file.writestr(image.name, image.buffer)
         return zip_buffer.getvalue()
 
@@ -71,5 +71,5 @@ class VideoSlideConverter:
         # 画像を返す
         return _image
 
-    def sample_images(self, slide_images: list[SlideImage]) -> list[Image.Image]:
-        return [self._sample_image(slide_image) for slide_image in slide_images]
+    def sample_images(self) -> list[Image.Image]:
+        return [self._sample_image(slide_image) for slide_image in self.slide_images]
