@@ -3,8 +3,9 @@ from io import BytesIO
 
 import streamlit as st
 from PIL import Image
-from schema.image import SlideImage
 from streamlit.runtime.uploaded_file_manager import UploadedFile
+
+from schema.image import SlideImage
 
 
 class VideoSlideConverter:
@@ -54,7 +55,7 @@ class VideoSlideConverter:
 
     def _sample_image(self, slide_image: SlideImage) -> Image.Image:
         # load sample image
-        base_image = Image.open("src/resource/base_image.png")
+        base_image = Image.open("resource/base_image.png")
         image = slide_image.to_pil_image()
         base_image.paste(image, self.slide_position, image)
         return base_image
