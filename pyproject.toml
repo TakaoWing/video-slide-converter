@@ -28,7 +28,7 @@ dev = "streamlit run src/main.py"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/video_slide_converter"]
+packages = ["src/video_slide_converter","src/schema", "src/main.py"]
 
 [tool.poetry]
 name = "video-slide-converter"
@@ -37,7 +37,10 @@ description = "slide image to video converter"
 authors = ["Tsubasa Takaoka"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 pydantic = "^2.6.3"
 streamlit = "^1.32.0"
 pillow = "^10.2.0"
+
+[tool.poetry.scripts]
+streamlit_app = "src.main:main"
