@@ -33,6 +33,7 @@ packages = ["src/video_slide_converter"]
 [tool.poetry]
 name = "video-slide-converter"
 version = "0.1.0"
+description = "slide image to video converter"
 authors = [
     { name = "Tsubasa Takaoka", email = "tt.wing2838783@gmail.com" }
 ]
