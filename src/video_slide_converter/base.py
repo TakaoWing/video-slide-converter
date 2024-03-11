@@ -3,16 +3,19 @@ from io import BytesIO
 
 import streamlit as st
 from PIL import Image
-from schema.image import SlideImage
 from streamlit.runtime.uploaded_file_manager import UploadedFile
+
+from schema.image import SlideImage
 
 
 class VideoSlideConverter:
-    video_size = (1920, 1080)
-    slide_position: tuple[int, int] = (15, 15)
-    slide_image_magnification = 1.15
+    video_size = (1280, 720)
+    slide_position: tuple[int, int] = (14, 19)
+    slide_image_magnification: float = 0.715
+    base_image = Image.open("src/resource/base_image.png")
 
     def __init__(self, position: tuple[int, int] | None = None) -> None:
+        # load sample image
         if position is not None:
             self.slide_position = position
 
@@ -53,11 +56,21 @@ class VideoSlideConverter:
         return zip_buffer.getvalue()
 
     def _sample_image(self, slide_image: SlideImage) -> Image.Image:
-        # load sample image
-        base_image = Image.open("src/resource/base_image.png")
-        image = slide_image.to_pil_image()
-        base_image.paste(image, self.slide_position, image)
-        return base_image
+        # スキーマから画像へ変換
+        image = slide_image.to_pil_image
+
+        # ベースを複製
+        _image = self.base_image.copy()
+
+        # 画像を貼り付け
+        _image.paste(
+            im=image,
+            box=self.slide_position,
+            mask=image,
+        )
+
+        # 画像を返す
+        return _image
 
     def sample_images(self, slide_images: list[SlideImage]) -> list[Image.Image]:
         return [self._sample_image(slide_image) for slide_image in slide_images]
