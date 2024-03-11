@@ -1,0 +1,16 @@
+{
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        },
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "cSpell.words": [
+        "LANCZOS"
+    ],
+}

@@ -1,0 +1,63 @@
+import zipfile
+from io import BytesIO
+
+import streamlit as st
+from PIL import Image
+from schema.image import SlideImage
+from streamlit.runtime.uploaded_file_manager import UploadedFile
+
+
+class VideoSlideConverter:
+    video_size = (1920, 1080)
+    slide_position: tuple[int, int] = (15, 15)
+    slide_image_magnification = 1.15
+
+    def __init__(self, position: tuple[int, int] | None = None) -> None:
+        if position is not None:
+            self.slide_position = position
+
+    def _convert_slide_image(self, image: UploadedFile) -> SlideImage:
+        # 1920x1080の透明背景画像を作成
+        base_image = Image.new("RGBA", self.video_size, (255, 0, 0, 0))
+
+        # 配置する小さい画像を開く
+        slide_image = Image.open(image).convert("RGBA")
+
+        # スライド画像のサイズを1.15倍に拡大
+        enlarged_size = (
+            int(slide_image.width * self.slide_image_magnification),
+            int(slide_image.height * self.slide_image_magnification),
+        )
+        slide_image = slide_image.resize(enlarged_size, Image.LANCZOS)
+
+        # 拡大した画像を特定の位置に配置
+        base_image.paste(slide_image, self.slide_position, slide_image)
+
+        # 結果を保存
+        buffer = BytesIO()
+        base_image.save(buffer, format="PNG")
+        return SlideImage(
+            name=image.name,
+            buffer=buffer.getvalue(),
+        )
+
+    def convert_slide_images(self) -> list[SlideImage]:
+        images = st.session_state.get("images", [])
+        return [self._convert_slide_image(image) for image in images]
+
+    def images_to_zip_buffer(self, images: list[SlideImage]) -> bytes:
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
+            for image in images:
+                zip_file.writestr(image.name, image.buffer)
+        return zip_buffer.getvalue()
+
+    def _sample_image(self, slide_image: SlideImage) -> Image.Image:
+        # load sample image
+        base_image = Image.open("src/resource/base_image.png")
+        image = slide_image.to_pil_image()
+        base_image.paste(image, self.slide_position, image)
+        return base_image
+
+    def sample_images(self, slide_images: list[SlideImage]) -> list[Image.Image]:
+        return [self._sample_image(slide_image) for slide_image in slide_images]
