@@ -27,8 +27,8 @@ class VideoSlideConverter:
         slide_image = Image.open(image).convert("RGBA")
 
         if slide_image.height > 1090:
-            self.slide_image_magnification = 0.46
-            self.slide_position = (50, 180)
+            self.slide_image_magnification = 0.52
+            self.slide_position = (60, 180)
 
         # スライド画像のサイズをn倍に拡大
         enlarged_size = (
