@@ -12,7 +12,7 @@ class VideoSlideConverter:
     video_size = (2560, 1440)
     slide_position: tuple[int, int] = (60, 72)
     slide_image_magnification: float = 1.43
-    base_image = Image.open("src/resource/test_image.png")
+    base_image = Image.open("src/resource/base_image.png")
 
     def __init__(self, position: tuple[int, int] | None = None) -> None:
         # load sample image
