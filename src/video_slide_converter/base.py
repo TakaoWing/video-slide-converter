@@ -9,9 +9,9 @@ from schema.image import SlideImage
 
 
 class VideoSlideConverter:
-    video_size = (1280, 720)
-    slide_position: tuple[int, int] = (30, 36)
-    slide_image_magnification: float = 0.715
+    video_size = (2560, 1440)
+    slide_position: tuple[int, int] = (60, 72)
+    slide_image_magnification: float = 1.43
     base_image = Image.open("src/resource/base_image.png")
 
     def __init__(self, position: tuple[int, int] | None = None) -> None:
@@ -27,8 +27,8 @@ class VideoSlideConverter:
         slide_image = Image.open(image).convert("RGBA")
 
         if slide_image.height > 1090:
-            self.slide_image_magnification = 0.23
-            self.slide_position = (25, 90)
+            self.slide_image_magnification = 0.46
+            self.slide_position = (50, 180)
 
         # スライド画像のサイズをn倍に拡大
         enlarged_size = (
