@@ -12,7 +12,7 @@ class VideoSlideConverter:
     video_size = (1280, 720)
     slide_position: tuple[int, int] = (30, 36)
     slide_image_magnification: float = 0.715
-    base_image = Image.open("src/resource/base_image.png")
+    base_image = Image.open("src/resource/test_image.png")
 
     def __init__(self, position: tuple[int, int] | None = None) -> None:
         # load sample image
@@ -26,7 +26,11 @@ class VideoSlideConverter:
         # 配置する小さい画像を開く
         slide_image = Image.open(image).convert("RGBA")
 
-        # スライド画像のサイズを1.15倍に拡大
+        if slide_image.height > 1090:
+            self.slide_image_magnification = 0.23
+            self.slide_position = (25, 90)
+
+        # スライド画像のサイズをn倍に拡大
         enlarged_size = (
             int(slide_image.width * self.slide_image_magnification),
             int(slide_image.height * self.slide_image_magnification),
